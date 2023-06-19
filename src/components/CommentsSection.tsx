@@ -56,7 +56,12 @@ const CommentsSection = async ({ postId }: CommentsSectionProps) => {
                 key={topLevelComment.id}
               >
                 <div className="mb-2">
-                  <PostComment comment={topLevelComment} />
+                  <PostComment
+                    comment={topLevelComment}
+                    postId={postId}
+                    currentVote={topLevelCommentVote}
+                    votesAmt={topLevelCommentVotesAmt}
+                  />
                 </div>
               </div>
             )
