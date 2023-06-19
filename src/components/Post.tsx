@@ -1,3 +1,5 @@
+'use client'
+
 import { formatTimeToNow } from '@/lib/utils'
 import { Post, User, Vote } from '@prisma/client'
 import { MessageSquare } from 'lucide-react'
@@ -6,11 +8,12 @@ import EditorOutput from './EditorOutput'
 import PostVoteClient from './post-vote/PostVoteClient'
 
 type PartialVote = Pick<Vote, 'type'>
+
 interface PostProps {
-  commentAmt: number
-  currentVote?: PartialVote
   votesAmt: number
   subredditName: string
+  currentVote?: PartialVote
+  commentAmt: number
   post: Post & {
     author: User
     votes: Vote[]
@@ -18,13 +21,13 @@ interface PostProps {
 }
 
 const Post: FC<PostProps> = ({
-  commentAmt,
-  currentVote,
-  votesAmt,
-  subredditName,
   post,
+  votesAmt,
+  currentVote,
+  subredditName,
+  commentAmt,
 }) => {
-  const pRef = useRef<HTMLDivElement>(null)
+  const pRef = useRef<HTMLParagraphElement>(null)
 
   return (
     <div className="rounded-md bg-white shadow">
@@ -48,7 +51,7 @@ const Post: FC<PostProps> = ({
                 <span className="px-1">•</span>
               </>
             ) : null}
-            <span>Posted by u/{post.author.name}</span>{' '}
+            <span>Posted by u/{post.author.username}</span>{' '}
             {formatTimeToNow(new Date(post.createdAt))}
           </div>
           <a href={`/r/${subredditName}/post/${post.id}`}>
@@ -56,6 +59,7 @@ const Post: FC<PostProps> = ({
               {post.title}
             </h1>
           </a>
+
           <div
             className="relative text-sm max-h-40 w-full overflow-clip"
             ref={pRef}
@@ -70,8 +74,8 @@ const Post: FC<PostProps> = ({
 
       <div className="bg-gray-50 z-20 text-sm p-4 sm:px-6">
         <a
-          className="w-fit flex items-center gap-2"
           href={`/r/${subredditName}/post/${post.id}`}
+          className="w-fit flex items-center gap-2"
         >
           <MessageSquare className="h-4 w-4" /> {commentAmt} comments
         </a>
@@ -79,5 +83,4 @@ const Post: FC<PostProps> = ({
     </div>
   )
 }
-
 export default Post
