@@ -58,7 +58,7 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
 
       return toast({
         title: 'Something went wrong',
-        description: 'Your vote was not registered, please try again',
+        description: 'Your vote was not registered, please try again.',
         variant: 'destructive',
       })
     },
