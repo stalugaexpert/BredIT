@@ -12,6 +12,8 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { useRouter, usePathname } from 'next/navigation'
 
+import '@/styles/editor.css'
+
 interface EditorProps {
   subredditId: string
 }
